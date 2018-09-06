@@ -1,0 +1,9 @@
+{
+  "name": "not-a-bean",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/binarysound/not-a-bean",
+  "author": "binarysound",
+  "license": "MIT",
+  "private": false
+}
