@@ -1,0 +1,7 @@
+{
+    "name": "not-a-bean",
+    "description": "Simple card game",
+    "repository": "https://github.com/binarysound/not-a-bean",
+    "keywords": ["node", "express", "game"],
+    "image": "heroku/nodejs"
+}
