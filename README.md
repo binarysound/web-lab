@@ -4,8 +4,7 @@
 Node 8 이상이 필요합니다.
 다음 명령으로 서버를 실행할 수 있습니다.
 ```bash
-yarn run watch-server  # 서버 빌드
-yarn run start-dev     # 서버 실행
+yarn run dev  # 서버 & 클라이언트 watch 및 실행
 ```
 
 ## 배포
