@@ -11,6 +11,7 @@
         "strict": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
+        "jsx": "react",
         "paths": {
             "@/*": ["app/*"]
         }
