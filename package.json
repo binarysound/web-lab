@@ -30,10 +30,11 @@
     "socket.io-client": "^2.1.1"
   },
   "scripts": {
-    "heroku-postbuild": "yarn run build-server",
-    "build-server": "webpack --mode production --config webpack.config.server.js",
-    "watch-server": "webpack --mode development --watch --config webpack.config.server.js",
-    "start": "node build/server.bundle.js",
-    "start-dev": "nodemon build/server.bundle.js"
+    "heroku-postbuild": "yarn run build",
+    "build-client": "webpack --mode production --config webpack.config.js --env.target=client",
+    "build-server": "webpack --mode production --config webpack.config.js --env.target=server",
+    "build": "yarn run build-server && yarn run build-client",
+    "start": "node build/server/main.bundle.js",
+    "dev": "node devRun.js"
   }
 }
