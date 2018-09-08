@@ -21,6 +21,8 @@
     "react-test-renderer": "^16.5.0",
     "ts-jest": "^23.1.4",
     "ts-loader": "^5.0.0",
+    "tslint": "^5.11.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^3.0.3",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
@@ -39,6 +41,7 @@
     "build-server": "webpack --mode production --config webpack.config.js --env.target=server",
     "build": "yarn run build-server && yarn run build-client",
     "test": "jest",
+    "lint": "tslint --project app/client/tsconfig.json && tslint --project app/server/tsconfig.json",
     "start": "node build/server/main.bundle.js",
     "dev": "node devRun.js"
   },
