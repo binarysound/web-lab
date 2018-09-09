@@ -1,8 +1,19 @@
 {
     "compilerOptions": {
+        "sourceMap": true,
         "noImplicitAny": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "target": "es6",
+        "baseUrl": "./",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "jsx": "react",
+        "paths": {
+            "@/*": ["app/*"]
+        }
     }
 }
