@@ -1,7 +1,7 @@
 {
-    "name": "not-a-bean",
-    "description": "Simple card game",
-    "repository": "https://github.com/binarysound/not-a-bean",
-    "keywords": ["node", "express", "game"],
+    "name": "web-lab",
+    "description": "Binarysound web laboratory",
+    "repository": "https://github.com/binarysound/web-lab",
+    "keywords": ["node", "express", "web"],
     "image": "heroku/nodejs"
 }
