@@ -5,6 +5,11 @@
   "author": "binarysound",
   "license": "MIT",
   "private": false,
+  "engines": {
+    "node": "8.11.4",
+    "npm": "5.6.0",
+    "yarn": "1.10.0"
+  },
   "devDependencies": {
     "@types/express": "^4.16.0",
     "@types/jest": "^23.3.2",
