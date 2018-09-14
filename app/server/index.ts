@@ -2,6 +2,8 @@ import express from 'express'
 import http from 'http'
 import SocketIO from 'socket.io'
 
+import { IClientMessage, IServerMessage } from '@/models/network'
+
 const PORT = process.env.PORT || 5000
 const app = express()
 
@@ -11,10 +13,13 @@ const server = http.createServer(app)
 
 const io = SocketIO(server)
 io.on('connection', (socket) => {
-  socket.emit('server event', { message: 'Hello, world!' })
-  socket.on('client event', (data) => {
+  const testServerMsg: IServerMessage = {
+    body: 'This is a message from server.',
+  }
+  socket.emit('serverMessage', testServerMsg)
+  socket.on('clientMessage', (data: IClientMessage) => {
     /* tslint:disable-next-line:no-console */
-    console.log(data)
+    console.log(data.body)
   })
 })
 
