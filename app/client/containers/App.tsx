@@ -1,5 +1,8 @@
 import React from 'react'
-import io from 'socket.io-client'
+import { Provider } from 'react-redux'
+
+import { TestContainer } from '@/client/containers/TestContainer'
+import { store } from '@/client/store'
 
 namespace App {
   /* tslint:disable-next-line:no-empty-interface */
@@ -11,27 +14,11 @@ namespace App {
 }
 
 export class App extends React.Component<App.IProps, App.IState> {
-  constructor(props: App.IProps) {
-    super(props)
-
-    this.state = {
-      message: 'No message received.',
-    }
-  }
-
-  public componentDidMount() {
-    const socket = io.connect('/')
-    socket.on('server event', (data: any) => {
-      this.setState({
-        message: data.message,
-      })
-      socket.emit('client event', { my: 'data' })
-    })
-  }
-
   public render() {
     return (
-      <div>{this.state.message}</div>
+      <Provider store={store}>
+        <TestContainer />
+      </Provider>
     )
   }
 }
