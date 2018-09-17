@@ -12,6 +12,7 @@
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
         "jsx": "react",
+        "moduleResolution": "node",
         "paths": {
             "@/*": ["app/*"]
         }
