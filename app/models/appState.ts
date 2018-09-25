@@ -1,3 +1,5 @@
+import { RouterState } from 'connected-react-router'
+
 import { IServerMessage } from '@/models/network'
 
 export namespace AppState {
@@ -8,4 +10,5 @@ export namespace AppState {
 
 export interface IAppState {
   env: AppState.IEnv
+  router: RouterState
 }
