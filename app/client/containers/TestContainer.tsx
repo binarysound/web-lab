@@ -1,9 +1,31 @@
+import { push } from 'connected-react-router'
 import React from 'react'
 import { connect, DispatchProp } from 'react-redux'
+import { Route, Switch } from 'react-router'
 
 import { AppAction } from '@/client/actions'
 import { IAppState } from '@/models/appState'
 import { IServerMessage } from '@/models/network'
+
+const Page = (props: {
+  dispatch: DispatchProp<AppAction>['dispatch'],
+  pageName: string,
+  toPageName: string,
+  toPath: string,
+}) => (
+  <div>
+    <div>{props.pageName}</div>
+    <div
+      style={{
+        color: 'blue',
+        cursor: 'pointer',
+      }}
+      onClick={() => props.dispatch(push(props.toPath))}
+    >
+      to {props.toPageName}
+    </div>
+  </div>
+)
 
 class _TestContainer extends React.Component<_TestContainer.IProps> {
   public componentDidMount() {
@@ -19,13 +41,54 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
   }
 
   public render() {
-    const { serverMessage } = this.props
-    return <div>{serverMessage.body}</div>
+    const { serverMessage, dispatch } = this.props
+    return (
+      <div>
+        {serverMessage.body}
+        <Switch>
+          <Route
+            path='/'
+            exact={true}
+            render={() => (
+              <Page
+                dispatch={dispatch}
+                pageName='Main page'
+                toPageName='Another page'
+                toPath='/another'
+              />
+            )}
+          />
+          <Route
+            path='/another'
+            exact={true}
+            render={() => (
+              <Page
+                dispatch={dispatch}
+                pageName='Another page'
+                toPageName='Main page'
+                toPath='/'
+              />
+            )}
+          />
+          <Route
+            render={() => (
+              <Page
+                dispatch={dispatch}
+                pageName='404'
+                toPageName='Main page'
+                toPath='/'
+              />
+            )}
+          />
+        </Switch>
+      </div>
+    )
   }
 }
 
 namespace _TestContainer {
   export interface IPropsFromState {
+    currentPath: string  // prop to force rerender when path changes
     serverMessage: IServerMessage
   }
   /* tslint:disable-next-line:no-empty-interface */
@@ -35,6 +98,7 @@ namespace _TestContainer {
 
   export function mapStateToProps(state: IAppState): IPropsFromState {
     return {
+      currentPath: state.router.location.pathname,
       serverMessage: state.env.serverMessage,
     }
   }
