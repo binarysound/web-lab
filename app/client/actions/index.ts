@@ -1,3 +1,5 @@
+import { RouterAction } from 'connected-react-router'
+
 import { IClientMessage, IServerMessage } from '@/models/network'
 
 export namespace AppAction {
@@ -21,5 +23,6 @@ export namespace AppAction {
 }
 
 export type AppAction =
+  RouterAction |
   AppAction.ENV_SAVE_SERVER_MESSAGE |
   AppAction.SAGA_PUSH_CLIENT_MESSAGE
