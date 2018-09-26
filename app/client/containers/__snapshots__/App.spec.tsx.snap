@@ -3,5 +3,22 @@
 exports[`App renders correctly 1`] = `
 <div>
   No message received.
+  <div>
+    <div>
+      Main page
+    </div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "color": "blue",
+          "cursor": "pointer",
+        }
+      }
+    >
+      to 
+      Another page
+    </div>
+  </div>
 </div>
 `;

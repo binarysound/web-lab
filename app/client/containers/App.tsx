@@ -1,8 +1,9 @@
+import { ConnectedRouter } from 'connected-react-router'
 import React from 'react'
 import { Provider } from 'react-redux'
 
 import { TestContainer } from '@/client/containers/TestContainer'
-import { store } from '@/client/store'
+import { history, store } from '@/client/store'
 
 namespace App {
   /* tslint:disable-next-line:no-empty-interface */
@@ -17,7 +18,9 @@ export class App extends React.Component<App.IProps, App.IState> {
   public render() {
     return (
       <Provider store={store}>
-        <TestContainer />
+        <ConnectedRouter history={history}>
+          <TestContainer />
+        </ConnectedRouter>
       </Provider>
     )
   }
