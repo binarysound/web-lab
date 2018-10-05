@@ -2,10 +2,19 @@
 각종 웹 서비스의 빠른 프로토타이핑을 위한 저장소입니다.
 
 ## 개발
-Node 8 이상이 필요합니다.
-다음 명령으로 서버를 실행할 수 있습니다.
+[Docker](https://www.docker.com/products/docker-desktop)가 필요합니다.
 ```bash
-yarn run dev  # 서버 & 클라이언트 watch 및 실행
+export PORT=5000
+docker-compose up --build  # 디펜던시 업데이트가 필요한 경우
+docker-compose up          # 디펜던시 업데이트가 없는 경우
+```
+
+이후 `localhost:5000`을 브라우저로 방문해 봅니다.
+
+### 환경변수
+Docker는 [`.env` 파일을 감지하여 환경변수로 사용](https://docs.docker.com/compose/environment-variables/#the-env-file)합니다. 프로젝트 루트에 `.env` 파일을 다음과 같이 생성해두면 매번 환경변수를 설정하지 않아도 됩니다.
+```bash
+PORT=5000
 ```
 
 ## 배포
