@@ -2,11 +2,11 @@
 
 exports[`App renders correctly 1`] = `
 <div>
-  No message received.
   <div>
     <div>
       Main page
     </div>
+    No message received.
     <div
       onClick={[Function]}
       style={
