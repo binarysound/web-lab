@@ -8,6 +8,11 @@ const Wrapper = styled.div`
   bottom: 0;
   left: 0;
 
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
   body:not(&) {
     position: relative;
   }
