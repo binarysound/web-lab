@@ -4,6 +4,7 @@ import { connect, DispatchProp } from 'react-redux'
 import { Route, Switch } from 'react-router'
 
 import { AppAction } from '@/client/actions'
+import { NotABean } from '@/client/not-a-bean/components/NotABean'
 import { IAppState } from '@/models/appState'
 import { IServerMessage } from '@/models/network'
 
@@ -72,6 +73,10 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
                 toPath='/'
               />
             )}
+          />
+          <Route
+            path='/not-a-bean'
+            component={NotABean}
           />
           <Route
             render={() => (
