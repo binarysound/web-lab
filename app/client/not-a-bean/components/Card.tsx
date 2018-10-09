@@ -202,7 +202,7 @@ export class Card extends React.Component<Card.IProps> {
         const xUnit = (width - widthMargin) / 3
         const yUnit = (height - heightMargin) / 7
 
-        const symbolSize = width / 10
+        const symbolSize = width * 0.19
 
         return (
           <path
