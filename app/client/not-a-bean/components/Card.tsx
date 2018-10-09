@@ -29,7 +29,8 @@ const Svg = styledSvg`
     user-select: none;
     text-anchor: middle;
     dominant-baseline: middle;
-    font-size: ${(props) => props.cardWidth / 10}px;
+    font-size: ${(props) => props.cardWidth * 0.12}px;
+    font-weight: 700;
   }
 
   .upper {
