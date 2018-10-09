@@ -146,10 +146,14 @@ function getSymbolPathD(suit: number, size: number): string {
 }
 
 function getSuitColor(suit: number): string {
-  if (suit === 0 || suit === 2) {
-    return '#384D66'
-  } else if (suit === 1 || suit === 3) {
-    return '#A9926D'
+  if (suit === 0) {
+    return '#33658A'
+  } else if (suit === 1) {
+    return '#758E4F'
+  } else if (suit === 2) {
+    return '#F6AE2D'
+  } else if (suit === 3) {
+    return '#F26419'
   }
   return ''
 }
