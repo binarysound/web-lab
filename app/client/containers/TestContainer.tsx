@@ -4,6 +4,7 @@ import { connect, DispatchProp } from 'react-redux'
 import { Route, Switch } from 'react-router'
 
 import { AppAction } from '@/client/actions'
+import { NotABean } from '@/client/not-a-bean/components/NotABean'
 import { IAppState } from '@/models/appState'
 import { IServerMessage } from '@/models/network'
 
@@ -12,9 +13,11 @@ const Page = (props: {
   pageName: string,
   toPageName: string,
   toPath: string,
+  children?: React.ReactNode,
 }) => (
   <div>
     <div>{props.pageName}</div>
+    {props.children}
     <div
       style={{
         color: 'blue',
@@ -44,7 +47,6 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
     const { serverMessage, dispatch } = this.props
     return (
       <div>
-        {serverMessage.body}
         <Switch>
           <Route
             path='/'
@@ -55,7 +57,9 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
                 pageName='Main page'
                 toPageName='Another page'
                 toPath='/another'
-              />
+              >
+                {serverMessage.body}
+              </Page>
             )}
           />
           <Route
@@ -69,6 +73,10 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
                 toPath='/'
               />
             )}
+          />
+          <Route
+            path='/not-a-bean'
+            component={NotABean}
           />
           <Route
             render={() => (
