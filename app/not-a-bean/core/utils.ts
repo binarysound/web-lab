@@ -3,38 +3,36 @@ import * as NotABean from '@/not-a-bean/models'
 export const NUM_SUITS = 4
 
 function generateDeck(): NotABean.Card[] {
-  const deck: NotABean.Card[] = []
-  for (let idx = 0; idx < 60; idx++) {
+  return Array(60).fill(null).map((_, idx) => {
     const cardSuit: number = Math.floor(idx / 15)
     if (idx % 15 < 10) {
-      deck.push({
+      return {
         suit: cardSuit,
         type: NotABean.CardType.NUMBER,
         value: idx % 15,
-      })
+      } as NotABean.Card
     } else {
       if (idx % 15 === 10) {
-        deck.push({
+        return {
           suit: cardSuit,
           type: NotABean.CardType.SPECIAL,
           value: NotABean.SpecialCardValue.ZEROING,
-        })
+        } as NotABean.Card
       } else if (idx % 15 === 11) {
-        deck.push({
+        return {
           suit: cardSuit,
           type: NotABean.CardType.SPECIAL,
           value: NotABean.SpecialCardValue.DOUBLE,
-        })
+        } as NotABean.Card
       } else {
-        deck.push({
+        return {
           suit: cardSuit,
           type: NotABean.CardType.SPECIAL,
           value: NotABean.SpecialCardValue.NEGATION,
-        })
+        } as NotABean.Card
       }
     }
-  }
-  return deck
+  })
 }
 
 export function generateInitialGame(playerCount: number): NotABean.IGame {
@@ -53,12 +51,13 @@ export function generateInitialGame(playerCount: number): NotABean.IGame {
     },
     players: {},
   }
-  for (let i = 0; i < playerCount; i++) {
-    game.players[i] = {
+  game.players = Array(playerCount).fill(null).reduce((acc, _, idx) => {
+    acc[idx] = {
       cardsAcquired: [],
       hand: [],
     }
-  }
+    return acc
+  }, {})
   // Deal the card
   while (deck.length > 0) {
     // Deal random card
@@ -78,14 +77,10 @@ export function generateInitialGame(playerCount: number): NotABean.IGame {
 }
 
 export function calculateScore(cards: NotABean.Card[]): number {
-  let score: number = 0
-  for (let suit = 0; suit < NUM_SUITS; suit++) {
-    const filteredCards = cards.filter((card) => {
-      return card.suit === suit
-    })
-    score += filteredCards.reduce(addCardScore, 0) * filteredCards.reduce(aggSpecialCard, 1)
-  }
-  return score
+  return Array(NUM_SUITS).fill(null).reduce((acc, _, suit) => {
+    const filteredCards = cards.filter((card) => card.suit === suit)
+    return acc + filteredCards.reduce(addCardScore, 0) * filteredCards.reduce(aggSpecialCard, 1)
+  }, 0)
 }
 
 function addCardScore(acc: number, card: NotABean.Card): number {
