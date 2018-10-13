@@ -20,9 +20,9 @@ export const enum SpecialCardValue {
 }
 
 interface ICardBase<C extends CardType, V> {
-  suit: number,
-  type: C,
-  value: V,
+  suit: number
+  type: C
+  value: V
 }
 
 export type Card =
