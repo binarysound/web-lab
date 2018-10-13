@@ -4,6 +4,7 @@ import * as NotABean from '@/not-a-bean/models'
 describe('function applyAction', () => {
   let initialGame: NotABean.IGame
   const playerCount = 4
+  const playerIDs = Array(playerCount).fill(null).map((_, idx) => idx)
   let firstPlayerID: NotABean.PlayerID
   function startGame(game: NotABean.IGame, firstID: NotABean.PlayerID): NotABean.IGame {
     return Core.applyAction(game, {
@@ -65,7 +66,7 @@ describe('function applyAction', () => {
     expect(cardPlayed.firstPlayer).toEqual(firstPlayerID)
     expect(cardPlayed.phase).toEqual({
       payload: {
-        waitingID: [0, 1, 2, 3].splice(firstPlayerID, 1),
+        waitingID: playerIDs.filter((x) => x !== firstPlayerID),
       },
       type: NotABean.PhaseType.WaitForOtherCards,
     })

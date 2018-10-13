@@ -38,9 +38,7 @@ export function applyAction(game: NotABean.IGame, action: NotABean.GameAction): 
         })
         draft.phase = {
           payload: {
-            waitingID: allPlayers.splice(allPlayers.findIndex((playerID) => {
-              return playerID === game.firstPlayer
-            }), 1),
+            waitingID: allPlayers.filter((x) => x !== game.firstPlayer),
           },
           type: NotABean.PhaseType.WaitForOtherCards,
         }
@@ -75,11 +73,7 @@ export function applyAction(game: NotABean.IGame, action: NotABean.GameAction): 
           // Remove the player from waiting list
           draft.phase = {
             payload: {
-              waitingID: game.phase.payload.waitingID.splice(
-                game.phase.payload.waitingID.findIndex((data) => {
-                  return data === id
-                }), 1,
-              ),
+              waitingID: game.phase.payload.waitingID.filter((x) => x !== id),
             },
             type: NotABean.PhaseType.WaitForOtherCards,
           }
