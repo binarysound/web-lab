@@ -21,7 +21,7 @@ function applyStartGame(game: NotABean.IGame, firstPlayerID: NotABean.PlayerID):
       throw new Error('First player is not in players list.')
     }
 
-    // Set first player and let the game start
+    // Set first player and let the game start.
     draft.firstPlayer = firstPlayerID
     draft.phase = {
       payload: null,
@@ -43,19 +43,19 @@ function applyPlayCard(
       throw new Error('No card information.')
     }
     if (game.phase.type === NotABean.PhaseType.WaitForFirstCard) {
-      // First player plays the card
+      // First player plays the card.
       if (cardPlayerID !== game.firstPlayer) {
         throw new Error('Card player should be the first player.')
       }
 
-      // Remove the played card from hand
+      // Remove the played card from hand.
       draft.players[cardPlayerID].hand.splice(cardIdx, 1)
-      // Add the played card to board
+      // Add the played card to board.
       draft.board.cardsPlayed.push({
         card: playedCard,
         playerID: cardPlayerID,
       })
-      // Move to next phase (let the other players play the card)
+      // Move to next phase (let the other players play the card).
       const allPlayers = Object.keys(draft.players).map((id) => parseInt(id, 10))
       draft.phase = {
         payload: {
@@ -64,22 +64,22 @@ function applyPlayCard(
         type: NotABean.PhaseType.WaitForOtherCards,
       }
     } else if (game.phase.type === NotABean.PhaseType.WaitForOtherCards) {
-      // Other player plays the card
+      // Other player plays the card.
       if (game.phase.payload.notYetPlayedIDs.indexOf(cardPlayerID) === -1) {
         throw new Error('Player with ID ${cardPlayerID} is not in `notYetPlayedIDs` list.')
       }
 
-      // Remove the played card from hand
+      // Remove the played card from hand.
       draft.players[cardPlayerID].hand.splice(cardIdx, 1)
-      // Add the played card to board
+      // Add the played card to board.
       draft.board.cardsPlayed.push({
         card: playedCard,
         playerID: cardPlayerID,
       })
       // Phase modification
       if (game.phase.payload.notYetPlayedIDs.length === 1) {
-        // If it is the last required card
-        // Move to next phase (card selecting)
+        // If it is the last required card,
+        // move to next phase (card selecting).
         draft.phase = {
           payload: {
             selectingPlayerID: game.firstPlayer,
@@ -87,7 +87,7 @@ function applyPlayCard(
           type: NotABean.PhaseType.WaitForSelection,
         }
       } else {
-        // Remove the player from waiting list
+        // Remove the player from waiting list.
         draft.phase = {
           payload: {
             notYetPlayedIDs: game.phase.payload.notYetPlayedIDs.filter((id) => id !== cardPlayerID),
@@ -113,20 +113,20 @@ function applySelectCard(
     if (game.board.cardsPlayed.length !== 1 &&
         selectedCard.playerID === game.firstPlayer) {
           // A player cannot select the first player's card
-          // until it's the last card remaining
+          // until it's the last card remaining.
           // Also, the player could not select the card from himself
-          // which is covered by the condition
+          // which is covered by the condition.
           throw new Error('First player\'s card cannot be selected now.')
     }
 
-    // Remove the card from board
+    // Remove the card from board.
     draft.board.cardsPlayed.splice(selectedIdx, 1)
-    // Add the card to player's acquired card
+    // Add the card to player's acquired card.
     draft.players[selPlayerID].cardsAcquired.push(selectedCard.card)
     // Phase modification
     if (game.board.cardsPlayed.length !== 1) {
-      // If there was more than one card on the board
-      // Keep selecting
+      // If there was more than one card on the board,
+      // keep selecting.
       draft.phase = {
         payload: {
           selectingPlayerID: selectedCard.playerID,
@@ -135,8 +135,8 @@ function applySelectCard(
       }
     } else if (game.players[0].hand.length !== 0) {
       // If there was only one card on the board
-      // but the players still have cards in the hand
-      // Go on to the next round (card play)
+      // but the players still have cards in the hand,
+      // go on to the next round (card play).
       draft.firstPlayer = selectedCard.playerID
       draft.phase = {
         payload: null,
@@ -144,8 +144,8 @@ function applySelectCard(
       }
     } else {
       // If there was only one card on the board
-      // and players played every card
-      // End the game
+      // and players played every card,
+      // end the game.
       draft.phase = {
         payload: null,
         type: NotABean.PhaseType.End,
