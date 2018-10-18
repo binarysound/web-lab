@@ -66,7 +66,7 @@ describe('function applyAction', () => {
     expect(cardPlayed.firstPlayer).toEqual(firstPlayerID)
     expect(cardPlayed.phase).toEqual({
       payload: {
-        waitingID: playerIDs.filter((x) => x !== firstPlayerID),
+        notYetPlayedIDs: playerIDs.filter((x) => x !== firstPlayerID),
       },
       type: NotABean.PhaseType.WaitForOtherCards,
     })

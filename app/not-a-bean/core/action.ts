@@ -57,14 +57,14 @@ function applyPlayCard(
       const allPlayers = Object.keys(draft.players).map((id) => parseInt(id, 10))
       draft.phase = {
         payload: {
-          waitingID: allPlayers.filter((id) => id !== game.firstPlayer),
+          notYetPlayedIDs: allPlayers.filter((id) => id !== game.firstPlayer),
         },
         type: NotABean.PhaseType.WaitForOtherCards,
       }
     } else if (game.phase.type === NotABean.PhaseType.WaitForOtherCards) {
       // Other player plays the card
-      if (game.phase.payload.waitingID.indexOf(cardPlayerID) === -1) {
-        throw new Error('Player with ID ${cardPlayerID} is not in `waitingID` list.')
+      if (game.phase.payload.notYetPlayedIDs.indexOf(cardPlayerID) === -1) {
+        throw new Error('Player with ID ${cardPlayerID} is not in `notYetPlayedIDs` list.')
       }
       // Remove the played card from hand
       draft.players[cardPlayerID].hand.splice(cardIdx, 1)
@@ -74,12 +74,12 @@ function applyPlayCard(
         playerID: cardPlayerID,
       })
       // Phase modification
-      if (game.phase.payload.waitingID.length === 1) {
+      if (game.phase.payload.notYetPlayedIDs.length === 1) {
         // If it is the last required card
         // Move to next phase (card selecting)
         draft.phase = {
           payload: {
-            selecting: game.firstPlayer,
+            selectingPlayerID: game.firstPlayer,
           },
           type: NotABean.PhaseType.WaitForSelection,
         }
@@ -87,7 +87,7 @@ function applyPlayCard(
         // Remove the player from waiting list
         draft.phase = {
           payload: {
-            waitingID: game.phase.payload.waitingID.filter((id) => id !== cardPlayerID),
+            notYetPlayedIDs: game.phase.payload.notYetPlayedIDs.filter((id) => id !== cardPlayerID),
           },
           type: NotABean.PhaseType.WaitForOtherCards,
         }
@@ -103,7 +103,7 @@ function applySelectCard(
     if (game.phase.type !== NotABean.PhaseType.WaitForSelection) {
       throw new Error('`SelectCard` is not applicable.')
     }
-    if (game.phase.payload.selecting !== selPlayerID) {
+    if (game.phase.payload.selectingPlayerID !== selPlayerID) {
       throw new Error('Player with ID ${selPlayerID} cannot select the card now.')
     }
     const selectedCard = game.board.cardsPlayed[selectedIdx]
@@ -125,7 +125,7 @@ function applySelectCard(
       // Keep selecting
       draft.phase = {
         payload: {
-          selecting: selectedCard.playerID,
+          selectingPlayerID: selectedCard.playerID,
         },
         type: NotABean.PhaseType.WaitForSelection,
       }

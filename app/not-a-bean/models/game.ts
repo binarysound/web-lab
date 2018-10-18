@@ -62,10 +62,10 @@ type GamePhase =
   IGamePhaseBase<PhaseType.BeforeStart, null> |
   IGamePhaseBase<PhaseType.WaitForFirstCard, null> |
   IGamePhaseBase<PhaseType.WaitForOtherCards, {
-    waitingID: PlayerID[],
+    notYetPlayedIDs: PlayerID[],
   }> |
   IGamePhaseBase<PhaseType.WaitForSelection, {
-    selecting: PlayerID,
+    selectingPlayerID: PlayerID,
   }> |
   IGamePhaseBase<PhaseType.End, null>
 
