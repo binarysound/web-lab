@@ -9,16 +9,16 @@ export function applyAction(game: NotABean.IGame, action: NotABean.GameAction): 
   } else if (action.type === NotABean.GameActionType.SelectCard) {
     return applySelectCard(game, action.payload.playerID, action.payload.selectedIdx)
   }
-  throw new Error('Action type is not supported')
+  throw new Error('Action type `${action.type}` is not supported.')
 }
 
 function applyStartGame(game: NotABean.IGame, firstPlayerID: NotABean.PlayerID): NotABean.IGame {
   return produce(game, (draft) => {
     if (game.phase.type !== NotABean.PhaseType.BeforeStart) {
-      throw new Error('StartGame is not applicable')
+      throw new Error('`StartGame` is not applicable.')
     }
     if (!(firstPlayerID in game.players)) {
-      throw new Error('First player is not in players list')
+      throw new Error('First player is not in players list.')
     }
     // Set first player and let the game start
     draft.firstPlayer = firstPlayerID
@@ -35,16 +35,16 @@ function applyPlayCard(
   return produce(game, (draft) => {
     if (game.phase.type !== NotABean.PhaseType.WaitForFirstCard &&
         game.phase.type !== NotABean.PhaseType.WaitForOtherCards) {
-          throw new Error('PlayCard is not applicable')
+          throw new Error('`PlayCard` is not applicable.')
     }
     const playedCard = draft.players[cardPlayerID].hand[cardIdx].private
     if (!playedCard) {
-      throw new Error('No card information')
+      throw new Error('No card information.')
     }
     if (game.phase.type === NotABean.PhaseType.WaitForFirstCard) {
       // First player plays the card
       if (cardPlayerID !== game.firstPlayer) {
-        throw new Error('Card player should be the first player')
+        throw new Error('Card player should be the first player.')
       }
       // Remove the played card from hand
       draft.players[cardPlayerID].hand.splice(cardIdx, 1)
@@ -64,7 +64,7 @@ function applyPlayCard(
     } else if (game.phase.type === NotABean.PhaseType.WaitForOtherCards) {
       // Other player plays the card
       if (game.phase.payload.waitingID.indexOf(cardPlayerID) === -1) {
-        throw new Error('This player cannot play a card')
+        throw new Error('Player with ID ${cardPlayerID} is not in `waitingID` list.')
       }
       // Remove the played card from hand
       draft.players[cardPlayerID].hand.splice(cardIdx, 1)
@@ -101,10 +101,10 @@ function applySelectCard(
 ): NotABean.IGame {
   return produce(game, (draft) => {
     if (game.phase.type !== NotABean.PhaseType.WaitForSelection) {
-      throw new Error('SelectCard is not applicable')
+      throw new Error('`SelectCard` is not applicable.')
     }
     if (game.phase.payload.selecting !== selPlayerID) {
-      throw new Error('This player cannot select the card')
+      throw new Error('Player with ID ${selPlayerID} cannot select the card now.')
     }
     const selectedCard = game.board.cardsPlayed[selectedIdx]
     if (game.board.cardsPlayed.length !== 1 &&
@@ -113,7 +113,7 @@ function applySelectCard(
           // until it's the last card remaining
           // Also, the player could not select the card from himself
           // which is covered by the condition
-          throw new Error('This player cannot select first player\'s card')
+          throw new Error('First player\'s card cannot be selected now.')
     }
     // Remove the card from board
     draft.board.cardsPlayed.splice(selectedIdx, 1)
