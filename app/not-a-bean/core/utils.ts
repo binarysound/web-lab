@@ -3,33 +3,33 @@ import * as NotABean from '@/not-a-bean/models'
 export const NUM_SUITS = 4
 
 function generateDeck(): NotABean.Card[] {
-  return Array(60).fill(null).map((_, idx) => {
+  return Array(60).fill(null).map((_, idx): NotABean.Card => {
     const cardSuit: number = Math.floor(idx / 15)
     if (idx % 15 < 10) {
       return {
         suit: cardSuit,
         type: NotABean.CardType.NUMBER,
         value: idx % 15,
-      } as NotABean.Card
+      }
     } else {
       if (idx % 15 === 10) {
         return {
           suit: cardSuit,
           type: NotABean.CardType.SPECIAL,
           value: NotABean.SpecialCardValue.ZEROING,
-        } as NotABean.Card
+        }
       } else if (idx % 15 === 11) {
         return {
           suit: cardSuit,
           type: NotABean.CardType.SPECIAL,
           value: NotABean.SpecialCardValue.DOUBLE,
-        } as NotABean.Card
+        }
       } else {
         return {
           suit: cardSuit,
           type: NotABean.CardType.SPECIAL,
           value: NotABean.SpecialCardValue.NEGATION,
-        } as NotABean.Card
+        }
       }
     }
   })
