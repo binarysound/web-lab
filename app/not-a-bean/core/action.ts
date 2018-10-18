@@ -20,6 +20,7 @@ function applyStartGame(game: NotABean.IGame, firstPlayerID: NotABean.PlayerID):
     if (!(firstPlayerID in game.players)) {
       throw new Error('First player is not in players list.')
     }
+
     // Set first player and let the game start
     draft.firstPlayer = firstPlayerID
     draft.phase = {
@@ -46,6 +47,7 @@ function applyPlayCard(
       if (cardPlayerID !== game.firstPlayer) {
         throw new Error('Card player should be the first player.')
       }
+
       // Remove the played card from hand
       draft.players[cardPlayerID].hand.splice(cardIdx, 1)
       // Add the played card to board
@@ -66,6 +68,7 @@ function applyPlayCard(
       if (game.phase.payload.notYetPlayedIDs.indexOf(cardPlayerID) === -1) {
         throw new Error('Player with ID ${cardPlayerID} is not in `notYetPlayedIDs` list.')
       }
+
       // Remove the played card from hand
       draft.players[cardPlayerID].hand.splice(cardIdx, 1)
       // Add the played card to board
@@ -115,6 +118,7 @@ function applySelectCard(
           // which is covered by the condition
           throw new Error('First player\'s card cannot be selected now.')
     }
+
     // Remove the card from board
     draft.board.cardsPlayed.splice(selectedIdx, 1)
     // Add the card to player's acquired card
