@@ -1,12 +1,14 @@
 import React from 'react'
 
 import { Screen } from '@/client/components/Screen'
-import { Card } from '@/not-a-bean/client/components/Card'
+// import { Card } from '@/not-a-bean/client/components/Card'
 
 export class NotABean extends React.Component {
   public render() {
     return (
       <Screen>
+        NOT A BEAN
+        {/*
         {Array(4).fill(null).map((_, suit) => {
           return (
             <div key={suit}>
@@ -20,7 +22,7 @@ export class NotABean extends React.Component {
               ))}
             </div>
           )
-        })}
+        })}*/}
       </Screen>
     )
   }

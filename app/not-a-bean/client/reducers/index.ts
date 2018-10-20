@@ -1,23 +1,17 @@
 import produce from 'immer'
 
-import { AppAction } from '@/client/actions'
-import { AppState } from '@/models/appState'
+import { NotABeanAction } from '@/not-a-bean/client/actions'
+import { INotABeanState } from '@/not-a-bean/client/models'
 
-const initialState: AppState.IEnv = {
-  serverMessage: {
-    body: 'No message received.',
-  },
+const initialState: INotABeanState = {
+  game: null,
 }
 
 export default produce((
-  draft: AppState.IEnv,
-  action: AppAction,
+  draft: INotABeanState,
+  action: NotABeanAction,
 ) => {
   switch (action.type) {
-    case AppAction.Type.ENV_SAVE_SERVER_MESSAGE: {
-      draft.serverMessage = (action as AppAction.ENV_SAVE_SERVER_MESSAGE).payload.serverMessage
-      return draft
-    }
   }
   return draft
 }, initialState)
