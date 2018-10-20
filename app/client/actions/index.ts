@@ -9,8 +9,8 @@ export namespace AppAction {
   }
 
   export interface IBase<A extends Type, P extends object> {
-    type: A
-    payload: P
+    readonly type: A
+    readonly payload: P
   }
 
   export type ENV_SAVE_SERVER_MESSAGE = IBase<Type.ENV_SAVE_SERVER_MESSAGE, {
