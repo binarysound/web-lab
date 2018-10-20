@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Card } from '@/client/not-a-bean/components/Card'
-import { Screen } from '@/client/not-a-bean/components/Screen'
+import { Screen } from '@/client/components/Screen'
+import { Card } from '@/not-a-bean/client/components/Card'
 
 export class NotABean extends React.Component {
   public render() {

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { StyledFunction } from 'styled-components'
 
-import { CARD_HEIGHT_TO_WIDTH_RATIO, numOfSymbolsToSymbolLayout } from '@/client/not-a-bean/ui/card'
+import { CARD_HEIGHT_TO_WIDTH_RATIO, numOfSymbolsToSymbolLayout } from '@/not-a-bean/client/ui/card'
 
 interface ISvgProps {
   cardWidth: number
