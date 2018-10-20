@@ -4,6 +4,7 @@
         "module": "commonjs"
     },
     "include": [
-        "./**/*"
+        "./**/*",
+        "../../index.d.ts"
     ]
 }

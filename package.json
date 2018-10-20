@@ -37,16 +37,21 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@types/react-router": "^4.0.31",
+    "connected-react-router": "^4.5.0",
     "express": "^4.16.3",
+    "express-history-api-fallback": "^2.2.1",
     "immer": "^1.6.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.5",
     "redux-saga": "^0.16.0",
     "socket.io": "^2.1.1",
-    "socket.io-client": "^2.1.1"
+    "socket.io-client": "^2.1.1",
+    "styled-components": "^3.4.9"
   },
   "scripts": {
     "heroku-postbuild": "yarn run build",
