@@ -4,6 +4,7 @@ import { connect, DispatchProp } from 'react-redux'
 import { Route, Switch } from 'react-router'
 
 import { AppAction } from '@/client/actions'
+import { Screen } from '@/client/components/Screen'
 import { IAppState } from '@/models/appState'
 import { IServerMessage } from '@/models/network'
 import { NotABean } from '@/not-a-bean/client/components/NotABean'
@@ -46,7 +47,7 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
   public render() {
     const { serverMessage, dispatch } = this.props
     return (
-      <div>
+      <Screen>
         <Switch>
           <Route
             path='/'
@@ -89,7 +90,7 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
             )}
           />
         </Switch>
-      </div>
+      </Screen>
     )
   }
 }

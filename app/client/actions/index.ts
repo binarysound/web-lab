@@ -1,6 +1,7 @@
 import { RouterAction } from 'connected-react-router'
 
 import { IClientMessage, IServerMessage } from '@/models/network'
+import { NotABeanAction } from '@/not-a-bean/client/actions'
 
 export namespace AppAction {
   export enum Type {
@@ -25,4 +26,5 @@ export namespace AppAction {
 export type AppAction =
   RouterAction |
   AppAction.ENV_SAVE_SERVER_MESSAGE |
-  AppAction.SAGA_PUSH_CLIENT_MESSAGE
+  AppAction.SAGA_PUSH_CLIENT_MESSAGE |
+  NotABeanAction

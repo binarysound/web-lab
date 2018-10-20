@@ -1,12 +1,15 @@
 import React from 'react'
+import { connect, DispatchProp } from 'react-redux'
 
-import { Screen } from '@/client/components/Screen'
+import { IAppState } from '@/models/appState'
+import { NotABeanAction } from '@/not-a-bean/client/actions'
+import { IGame } from '@/not-a-bean/models'
 // import { Card } from '@/not-a-bean/client/components/Card'
 
-export class NotABean extends React.Component {
+class _NotABean extends React.Component<_NotABean.IProps> {
   public render() {
     return (
-      <Screen>
+      <div>
         NOT A BEAN
         {/*
         {Array(4).fill(null).map((_, suit) => {
@@ -23,7 +26,23 @@ export class NotABean extends React.Component {
             </div>
           )
         })}*/}
-      </Screen>
+      </div>
     )
   }
 }
+
+namespace _NotABean {
+  export interface IPropsFromState {
+    game: IGame | null
+  }
+  /* tslint:disable-next-line:no-empty-interface */
+  export interface IOwnProps {}
+  export type IProps = IPropsFromState & IOwnProps & DispatchProp<NotABeanAction>
+  export function mapStateToProps(state: IAppState): IPropsFromState {
+    return {
+      game: state.notABean.game,
+    }
+  }
+}
+
+export const NotABean = connect(_NotABean.mapStateToProps)(_NotABean)
