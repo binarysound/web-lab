@@ -3,8 +3,8 @@ import { connect, DispatchProp } from 'react-redux'
 
 import { IAppState } from '@/models/appState'
 import { NotABeanAction } from '@/not-a-bean/client/actions'
-import { IGame } from '@/not-a-bean/models'
-// import { Card } from '@/not-a-bean/client/components/Card'
+import { Card } from '@/not-a-bean/client/components/Card'
+import { CardType, IGame } from '@/not-a-bean/models'
 
 class _NotABean extends React.Component<_NotABean.IProps> {
   public render() {
@@ -13,7 +13,41 @@ class _NotABean extends React.Component<_NotABean.IProps> {
     return (
       <div>
         NOT A BEAN
-        {game === null ? <div>game is null.</div> : <div>game is not null.</div>}
+        {game === null ? <div>game is null.</div> : this.renderGame(game)}
+      </div>
+    )
+  }
+
+  private renderGame(game: IGame) {
+    const playerIds = Object.keys(game.players).map((key) => parseInt(key, 10))
+    console.log(playerIds)
+
+    return (
+      <div>
+        <div>Phase: {game.phase.type}</div>
+        {playerIds.map((playerId) => {
+          const player = game.players[playerId]
+          return (
+            <div key={playerId}>
+              <div>PlayerID: {playerId}</div>
+              {player.hand.map((card, idx) => {
+                if (card.private) {
+                  if (card.private.type === CardType.NUMBER) {
+                    return (
+                      <Card
+                        suit={card.private.suit}
+                        number={card.private.value + 1}
+                        width={100}
+                        key={idx}
+                      />
+                    )
+                  }
+                }
+                return null
+              })}
+            </div>
+          )
+        })}
       </div>
     )
   }

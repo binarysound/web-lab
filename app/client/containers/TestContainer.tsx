@@ -6,7 +6,6 @@ import { Route, Switch } from 'react-router'
 import { AppAction } from '@/client/actions'
 import { Screen } from '@/client/components/Screen'
 import { IAppState } from '@/models/appState'
-import { IServerMessage } from '@/models/network'
 import { NotABean } from '@/not-a-bean/client/components/NotABean'
 
 const Page = (props: {
@@ -32,20 +31,8 @@ const Page = (props: {
 )
 
 class _TestContainer extends React.Component<_TestContainer.IProps> {
-  public componentDidMount() {
-    /*const { dispatch } = this.props
-    dispatch({
-      payload: {
-        message: {
-          body: 'This is a message from client.',
-        },
-      },
-      type: AppAction.Type.SAGA_PUSH_CLIENT_MESSAGE,
-    })*/
-  }
-
   public render() {
-    const { serverMessage, dispatch } = this.props
+    const { dispatch } = this.props
     return (
       <Screen>
         <Switch>
@@ -98,7 +85,6 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
 namespace _TestContainer {
   export interface IPropsFromState {
     currentPath: string  // prop to force rerender when path changes
-    serverMessage: IServerMessage
   }
   /* tslint:disable-next-line:no-empty-interface */
   export interface IOwnProps {}
@@ -108,7 +94,6 @@ namespace _TestContainer {
   export function mapStateToProps(state: IAppState): IPropsFromState {
     return {
       currentPath: state.router.location.pathname,
-      serverMessage: state.env.serverMessage,
     }
   }
 }
