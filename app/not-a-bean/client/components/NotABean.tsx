@@ -8,24 +8,12 @@ import { IGame } from '@/not-a-bean/models'
 
 class _NotABean extends React.Component<_NotABean.IProps> {
   public render() {
+    const { game } = this.props
+
     return (
       <div>
         NOT A BEAN
-        {/*
-        {Array(4).fill(null).map((_, suit) => {
-          return (
-            <div key={suit}>
-              {Array(10).fill(null).map((__, idx) => (
-                <Card
-                  width={100}
-                  key={idx}
-                  suit={suit}
-                  number={idx + 1}
-                />
-              ))}
-            </div>
-          )
-        })}*/}
+        {game === null ? <div>game is null.</div> : <div>game is not null.</div>}
       </div>
     )
   }

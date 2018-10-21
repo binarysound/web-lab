@@ -12,6 +12,10 @@ export default produce((
   action: NotABeanAction,
 ) => {
   switch (action.type) {
+    case NotABeanAction.Type.UPDATE_GAME: {
+      draft.game = action.payload.game
+      return draft
+    }
   }
   return draft
 }, initialState)

@@ -1,7 +1,9 @@
+import { NotABeanClientMsg, NotABeanServerMsg } from '@/not-a-bean/models/message'
+
 export interface IServerMessage {
-  body: string
+  notABean?: NotABeanServerMsg
 }
 
 export interface IClientMessage {
-  body: string
+  notABean?: NotABeanClientMsg
 }
