@@ -33,7 +33,7 @@ const Page = (props: {
 
 class _TestContainer extends React.Component<_TestContainer.IProps> {
   public componentDidMount() {
-    const { dispatch } = this.props
+    /*const { dispatch } = this.props
     dispatch({
       payload: {
         message: {
@@ -41,7 +41,7 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
         },
       },
       type: AppAction.Type.SAGA_PUSH_CLIENT_MESSAGE,
-    })
+    })*/
   }
 
   public render() {
@@ -59,7 +59,7 @@ class _TestContainer extends React.Component<_TestContainer.IProps> {
                 toPageName='Another page'
                 toPath='/another'
               >
-                {serverMessage.body}
+                {null}
               </Page>
             )}
           />

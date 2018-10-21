@@ -5,7 +5,7 @@ import SocketIO from 'socket.io'
 
 import { IClientMessage, IServerMessage } from '@/models/network'
 import { generateInitialGame } from '@/not-a-bean/core'
-import { NotABeanServerMsg } from '@/not-a-bean/models/message'
+import { NotABeanServerMsgType } from '@/not-a-bean/models/message'
 
 const PORT = process.env.PORT || 5000
 const root = 'build/client'
@@ -23,15 +23,10 @@ io.on('connection', (socket) => {
       payload: {
         game: generateInitialGame(4),
       },
-      type: NotABeanServerMsg.Type.UPDATE_GAME,
+      type: NotABeanServerMsgType.UPDATE_GAME,
     },
   }
   socket.emit('serverMessage', initialMessage)
-
-  /*const testServerMsg: IServerMessage = {
-    body: 'This is a message from server.',
-  }
-  socket.emit('serverMessage', testServerMsg)*/
 
   socket.on('clientMessage', (data: IClientMessage) => {
     /* tslint:disable-next-line:no-console */
