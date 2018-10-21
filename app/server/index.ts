@@ -4,6 +4,8 @@ import http from 'http'
 import SocketIO from 'socket.io'
 
 import { IClientMessage, IServerMessage } from '@/models/network'
+import { generateInitialGame } from '@/not-a-bean/core'
+import { NotABeanServerMsg } from '@/not-a-bean/models/message'
 
 const PORT = process.env.PORT || 5000
 const root = 'build/client'
@@ -16,13 +18,29 @@ const server = http.createServer(app)
 
 const io = SocketIO(server)
 io.on('connection', (socket) => {
-  const testServerMsg: IServerMessage = {
+  const initialMessage: IServerMessage = {
+    notABean: {
+      payload: {
+        game: generateInitialGame(4),
+      },
+      type: NotABeanServerMsg.Type.UPDATE_GAME,
+    },
+  }
+  socket.emit('serverMessage', initialMessage)
+
+  /*const testServerMsg: IServerMessage = {
     body: 'This is a message from server.',
   }
-  socket.emit('serverMessage', testServerMsg)
+  socket.emit('serverMessage', testServerMsg)*/
+
   socket.on('clientMessage', (data: IClientMessage) => {
     /* tslint:disable-next-line:no-console */
-    console.log(data.body)
+    console.log(data)
+
+    if ('notABean' in data && data.notABean) {
+      /* tslint:disable-next-line:no-console */
+      console.log('notABean message')
+    }
   })
 })
 

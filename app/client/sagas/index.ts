@@ -4,6 +4,8 @@ import io from 'socket.io-client'
 
 import { AppAction } from '@/client/actions'
 import { IServerMessage } from '@/models/network'
+import { NotABeanAction } from '@/not-a-bean/client/actions'
+import notABeanSaga from '@/not-a-bean/client/sagas'
 
 let webSocket: SocketIOClient.Socket | null = null
 
@@ -28,12 +30,12 @@ function createSocketChannel(socket: SocketIOClient.Socket) {
 }
 
 function* handleServerMessage(message: IServerMessage) {
-  yield put<AppAction>({
-    payload: {
-      serverMessage: message,
-    },
-    type: AppAction.Type.ENV_SAVE_SERVER_MESSAGE,
-  })
+  if ('notABean' in message && message.notABean) {
+    yield put<AppAction>({
+      payload: message.notABean,
+      type: NotABeanAction.Type.NAB_SAGA_HANDLE_MESSAGE,
+    })
+  }
 }
 
 function* watchSocketConnection() {
@@ -59,5 +61,6 @@ export default function* rootSaga() {
   yield all([
     watchSocketConnection(),
     watchPushClientMessage(),
+    notABeanSaga(),
   ])
 }
